@@ -4,12 +4,23 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const multer = require("multer")
 const path = require("path")
+const fs = require("fs")
+require("dotenv").config()
 
 const app = express()
 const PORT = process.env.PORT || 5000
 
 app.use(cors())
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+
+// Ensure uploads directory exists
+const uploadsDir = path.join(__dirname, "uploads")
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir)
+  console.log("Created 'uploads' directory")
+} else {
+  console.log("'uploads' directory already exists")
+}
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -25,10 +36,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-mongoose.connect("Your MongoDB connection string", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB Atlas"))
+  .catch((err) => console.error("Error connecting to MongoDB Atlas", err))
 
 const postSchema = new mongoose.Schema({
   title: String,

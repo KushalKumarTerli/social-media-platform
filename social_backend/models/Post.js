@@ -7,6 +7,6 @@ const postSchema = new mongoose.Schema({
   comments: [{ text: String }],
 })
 
-const Posts = mongoose.model("Post", postSchema)
+const Post = mongoose.model("Post", postSchema)
 
-module.exports = Posts
+module.exports = Post
