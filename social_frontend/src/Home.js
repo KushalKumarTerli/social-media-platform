@@ -45,7 +45,7 @@ function Home() {
       <h2>Recent Posts</h2>
       {posts.map((post) => {
         const { _id, title, content, file, likes, comments } = post
-        retrun(
+        return (
           <div key={_id} className="post">
             <h3>{title}</h3>
             <p>{content}</p>

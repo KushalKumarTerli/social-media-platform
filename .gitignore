@@ -1,1 +1,3 @@
 social_backend/node_modules
+social_backend/.env
+social_backend/uploads
