@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-mongoose.connect("Your MongoDB connection string", {
+mongoose.connect("mongodb://localhost:27017/mydatabase", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
