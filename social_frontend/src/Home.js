@@ -9,14 +9,14 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/posts")
+      .get(`${process.env.APP_BACKEND_URL}/api/posts`)
       .then((response) => setPosts(response.data))
       .catch((error) => console.error("Error fetching posts:", error))
   }, [])
 
   const handleLike = (postId) => {
     axios
-      .post(`http://localhost:5000/api/posts/like/${postId}`)
+      .post(`${process.env.APP_BACKEND_URL}/api/posts/like/${postId}`)
       .then((response) => {
         const updatedPosts = posts.map((post) =>
           post._id === postId ? response.data : post
@@ -28,7 +28,7 @@ function Home() {
 
   const handleAddComment = (postId, commentText) => {
     axios
-      .post(`http://localhost:5000/api/posts/comment/${postId}`, {
+      .post(`${process.env.APP_BACKEND_URL}/api/posts/comment/${postId}`, {
         text: commentText,
       })
       .then((response) => {
@@ -54,14 +54,14 @@ function Home() {
                 {file.includes(".mp4") ? (
                   <video width="320" height="240" controls>
                     <source
-                      src={`http://localhost:5000/uploads/${file}`}
+                      src={`${process.env.APP_BACKEND_URL}/uploads/${file}`}
                       type="video/mp4"
                     />
                     Your browser does not support the video tag.
                   </video>
                 ) : (
                   <img
-                    src={`http://localhost:5000/uploads/${file}`}
+                    src={`${process.env.APP_BACKEND_URL}/uploads/${file}`}
                     alt="Post Media"
                   />
                 )}
